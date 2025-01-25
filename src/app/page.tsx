@@ -1,101 +1,96 @@
-import Image from 'next/image';
+'use client';
+
+import Link from 'next/link';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { ChevronRight } from 'lucide-react';
+
+import { Button } from '@/components/components/ui/button';
+import { HeroBanner } from '@/components/HeroBanner/HeroBanner';
+import { PlaceCategoryItem } from '@/components/Place/PlaceCategoryItem';
+import { PlaceDetailCard } from '@/components/Place/PlaceDetailCard';
+import PlaceDetailCardSkeleton from '@/components/Place/PlaceDetailCardSkeleton';
+import { QUERY_KEYS } from '@/constants/index';
+import ApiService from '@/services/api';
 
 export default function Home() {
-  return (
-    <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
-      <main className='flex flex-col gap-8 row-start-2 items-center sm:items-start'>
-        <Image
-          className='dark:invert'
-          src='/next.svg'
-          alt='Next.js logo'
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className='list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]'>
-          <li className='mb-2'>
-            Get started by editing{' '}
-            <code className='bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold'>
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { data: recommendedPlaces, status: recommendedPlacesStatus } = useQuery(
+    {
+      queryKey: [QUERY_KEYS.RECOMMENDED_PLACES],
+      queryFn: () => ApiService.getRecommendedPlaces(),
+      retry: 2,
+      retryDelay: attempt => Math.min(1000 * 2 ** attempt, 30000),
+    }
+  );
 
-        <div className='flex gap-4 items-center flex-col sm:flex-row'>
-          <a
-            className='rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5'
-            href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <Image
-              className='dark:invert'
-              src='/vercel.svg'
-              alt='Vercel logomark'
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className='rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44'
-            href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className='row-start-3 flex gap-6 flex-wrap items-center justify-center'>
-        <a
-          className='flex items-center gap-2 hover:underline hover:underline-offset-4'
-          href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/file.svg'
-            alt='File icon'
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className='flex items-center gap-2 hover:underline hover:underline-offset-4'
-          href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/window.svg'
-            alt='Window icon'
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className='flex items-center gap-2 hover:underline hover:underline-offset-4'
-          href='https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/globe.svg'
-            alt='Globe icon'
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  const { data: categories, status: categoriesStatus } = useQuery({
+    queryKey: [QUERY_KEYS.PLACE_CATEGORIES],
+    queryFn: () => ApiService.getCategories(),
+    retry: 2,
+    retryDelay: attempt => Math.min(1000 * 2 ** attempt, 30000),
+  });
+
+  const { data: popularAreas } = useQuery({
+    queryKey: [QUERY_KEYS.POPULAR_AREAS],
+    queryFn: () => ApiService.getPopularAreas(),
+    retry: 2,
+    retryDelay: attempt => Math.min(1000 * 2 ** attempt, 30000),
+  });
+
+  return (
+    <main>
+      <HeroBanner />
+      <div className='container mx-auto px-4 py-12'>
+        <section className='mb-16'>
+          <h2 className='text-2xl font-semibold mb-4'>必去地點</h2>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            {recommendedPlacesStatus === 'pending'
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <PlaceDetailCardSkeleton key={index} />
+                ))
+              : recommendedPlaces?.map(place => (
+                  <Link key={place.id} href={`/place/${place.id}`}>
+                    <PlaceDetailCard key={place.id} place={place} />
+                  </Link>
+                ))}
+          </div>
+        </section>
+
+        <section className='mb-16'>
+          <h2 className='text-2xl font-semibold mb-4'>地點類型</h2>
+          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+            {categoriesStatus === 'pending'
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <PlaceDetailCardSkeleton key={index} />
+                ))
+              : categories?.map(category => (
+                  <Link
+                    key={category.id}
+                    href={`/search?categoryIds=${category.id}`}
+                  >
+                    <PlaceCategoryItem category={category} />
+                  </Link>
+                ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className='text-2xl font-semibold mb-4'>熱門地區</h2>
+          <ul className='grid grid-cols-2 sm:grid-cols-6 md:grid-cols-4 lg:grid-cols-6 gap-2'>
+            {popularAreas?.map(area => (
+              <li key={area.id}>
+                <Link href={`/search?areaIds=${area.id}`}>
+                  <Button variant='link' className='text-left'>
+                    <span>{area.nameZhHk}</span>
+                    <ChevronRight className='ml-2 h-4 w-4' />
+                  </Button>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </main>
   );
 }
