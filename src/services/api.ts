@@ -1,6 +1,13 @@
 import axios from 'axios';
 
-import { PlaceArea, PlaceCategory, PlaceOverview } from '@/types/Place.type';
+import { Pagination } from '@/types/Pagination.type';
+import {
+  Place,
+  PlaceArea,
+  PlaceCategory,
+  PlaceOverview,
+  SearchPlaceQuery,
+} from '@/types/Place.type';
 
 const REFRESH_TOKEN_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/tokens/refresh`;
 
@@ -173,9 +180,46 @@ const getAllAreas = async () => {
   }
 };
 
+const getPlaceDetail = async (id: number) => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/places/${id}`,
+      method: 'GET',
+    });
+
+    if (!data) {
+      throw new Error('Place not found');
+    }
+
+    return data as Place;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch place: ${error.message}`);
+  }
+};
+
+const searchPlaces = async (query: SearchPlaceQuery) => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/places/search`,
+      method: 'GET',
+      params: query,
+    });
+
+    if (!data) {
+      throw new Error('Failed to search places');
+    }
+
+    return data as Pagination<Place>;
+  } catch (error: any) {
+    throw new Error(`Failed to search places: ${error.message}`);
+  }
+};
+
 export default {
   getRecommendedPlaces,
   getCategories,
   getPopularAreas,
   getAllAreas,
+  getPlaceDetail,
+  searchPlaces,
 };

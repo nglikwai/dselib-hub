@@ -53,3 +53,11 @@ export interface PlaceCategory {
   code?: string | null;
   thumbnailUrl: string;
 }
+
+export interface SearchPlaceQuery {
+  nameZhHk?: string | null;
+  areaIds?: number[];
+  categoryIds?: number[];
+  page?: number;
+  limit?: number;
+}
