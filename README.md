@@ -1,6 +1,8 @@
-# Next.js template
+# Study Place
 
-This app is bootstrap with [create-next-app](https://www.npmjs.com/package/create-next-app)
+Live demo: https://study-hub-web.vercel.app/
+
+Study Place is a study places searching web app, bootstrap with [create-next-app](https://www.npmjs.com/package/create-next-app)
 
 ### Prerequisite
 
