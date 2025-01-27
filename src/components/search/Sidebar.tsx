@@ -116,6 +116,24 @@ export function Sidebar({
       </h2>
 
       <div className='mb-6'>
+        <h3 className='text-md font-medium mb-2'>地點類型</h3>
+        {categories.map(category => (
+          <div key={category.id} className='flex items-center space-x-2 mb-2'>
+            <Checkbox
+              id={`category-${category.id}`}
+              checked={filters.categoryIds.includes(category.id)}
+              onCheckedChange={() =>
+                handleFilterChange('categoryIds', category.id)
+              }
+            />
+            <Label htmlFor={`category-${category.id}`}>
+              <span className='cursor-pointer'>{category.nameZhHk}</span>
+            </Label>
+          </div>
+        ))}
+      </div>
+
+      <div>
         <h3 className='text-md font-medium mb-2 flex items-center'>地區</h3>
         {areas.map(area => (
           <div key={area.id} className='flex items-center space-x-2 mb-2'>
@@ -126,27 +144,6 @@ export function Sidebar({
             />
             <Label htmlFor={`area-${area.id}`}>
               <span className='cursor-pointer'>{area.nameZhHk}</span>
-            </Label>
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <h3 className='text-md font-medium mb-2'>類型</h3>
-        {categories.map(category => (
-          <div
-            key={category.id}
-            className='flex items-center space-x-2 mb-2 cursor-pointer'
-          >
-            <Checkbox
-              id={`category-${category.id}`}
-              checked={filters.categoryIds.includes(category.id)}
-              onCheckedChange={() =>
-                handleFilterChange('categoryIds', category.id)
-              }
-            />
-            <Label htmlFor={`category-${category.id}`}>
-              {category.nameZhHk}
             </Label>
           </div>
         ))}

@@ -54,13 +54,13 @@ export const MobileSearchSummary = ({
         </div>
         {totalFilters > 0 && (
           <div className='text-sm text-gray-500'>
-            {activeFilters.areaIds.length > 0 &&
-              `${activeFilters.areaIds.length} 地區`}
+            {activeFilters.categoryIds.length > 0 &&
+              `${activeFilters.categoryIds.length} 地點類型`}
             {activeFilters.areaIds.length > 0 &&
               activeFilters.categoryIds.length > 0 &&
               '；'}
-            {activeFilters.categoryIds.length > 0 &&
-              `${activeFilters.categoryIds.length} 類型`}
+            {activeFilters.areaIds.length > 0 &&
+              `${activeFilters.areaIds.length} 地區`}
           </div>
         )}
       </div>
