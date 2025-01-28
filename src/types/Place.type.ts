@@ -39,11 +39,19 @@ export interface Place {
   categories: PlaceCategory[];
 }
 
+export interface PlaceDistrict {
+  id: number;
+  nameZhHk: string;
+  nameEnUs: string;
+  code?: string | null;
+}
+
 export interface PlaceArea {
   id: number;
   nameZhHk: string;
   nameEnUs: string;
   code?: string | null;
+  district: PlaceDistrict;
 }
 
 export interface PlaceCategory {

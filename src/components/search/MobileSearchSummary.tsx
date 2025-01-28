@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Filter, Search } from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
 
 import { Badge } from '@/components/components/ui/badge';
 import { Button } from '@/components/components/ui/button';
@@ -45,7 +45,7 @@ export const MobileSearchSummary = ({
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-2'>
           <Button variant='outline' size='sm' onClick={onOpenFilters}>
-            <Filter className='h-4 w-4 mr-2' />
+            <SlidersHorizontal className='h-4 w-4 mr-2' />
             篩選條件
           </Button>
           {totalFilters > 0 && (

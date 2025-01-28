@@ -89,10 +89,18 @@ export default function SearchPage({
 
   const handleUpdateUrl = useCallback(() => {
     const params = new URLSearchParams();
-    if (query) params.set('query', query);
-    if (areaIds?.length) params.set('areaIds', areaIds.join(','));
-    if (categoryIds?.length) params.set('categoryIds', categoryIds.join(','));
-    if (page > 1) params.set('page', page.toString());
+    if (query) {
+      params.set('query', query);
+    }
+    if (areaIds?.length) {
+      params.set('areaIds', areaIds.join(','));
+    }
+    if (categoryIds?.length) {
+      params.set('categoryIds', categoryIds.join(','));
+    }
+    if (page > 1) {
+      params.set('page', page.toString());
+    }
 
     router.push(`/search?${params.toString()}`, { scroll: true });
   }, [query, areaIds, categoryIds, page, router]);
@@ -140,7 +148,7 @@ export default function SearchPage({
         </div>
         <div className='md:hidden'>
           <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
-            <SheetTitle>
+            <SheetTitle className='hidden'>
               <SheetDescription>搜尋</SheetDescription>
             </SheetTitle>
             <SheetContent side='left' className='w-[300px] sm:w-[400px]'>
