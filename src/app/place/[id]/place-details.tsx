@@ -346,7 +346,7 @@ export default function PlaceDetails(props: Props) {
                 <PlaceReviewForm onSubmit={handleNewReview} />
               </div>
 
-              {reviews && reviews.length === 0 && (
+              {(!reviews || (reviews && reviews.length === 0)) && (
                 <div className='flex items-center justify-center'>暫無評論</div>
               )}
 
