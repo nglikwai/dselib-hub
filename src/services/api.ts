@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { useAuthStore } from '@/stores/auth.store';
+import { SigninCredentials, Tokens } from '@/types/auth.type';
 import { Pagination } from '@/types/Pagination.type';
 import {
   Place,
@@ -8,22 +10,18 @@ import {
   PlaceOverview,
   SearchPlaceQuery,
 } from '@/types/Place.type';
-
-const REFRESH_TOKEN_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/tokens/refresh`;
-
-const LOGOUT_URL = `${process.env.NEXT_PUBLIC_APP_BASE_URL}/auth/signout`;
+import { User } from '@/types/user.type';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 axiosInstance.interceptors.request.use(config => {
-  const accessToken = localStorage.getItem(
-    process.env.NEXT_PUBLIC_ACCESS_TOKEN_NAME!
-  );
+  const accessToken = useAuthStore.getState().accessToken;
 
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
@@ -37,64 +35,39 @@ axiosInstance.interceptors.response.use(
   async error => {
     const originalRequest = error.config;
 
+    const targetUrl = originalRequest.url;
+
+    // Return error if the request is for signin
+    if (targetUrl === 'v1/auth/signin') {
+      return Promise.reject(error);
+    }
+
     // Handle 401 errors by refreshing the token
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true; // Mark the request as retried
 
       try {
-        const refreshToken = localStorage.getItem(
-          process.env.NEXT_PUBLIC_REFRESH_TOKEN_NAME!
-        );
-
+        const refreshToken = useAuthStore.getState().refreshToken;
         if (!refreshToken) {
-          // Redirect to logout page if refresh token is missing
-          window.location.href = LOGOUT_URL;
-
-          return;
+          return Promise.reject('Refresh token not found');
         }
-
-        const response = await fetch(REFRESH_TOKEN_URL, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${refreshToken}`,
-          },
-        });
-
-        const { accessToken } = await response.json();
-
-        if (!accessToken) {
-          // Redirect to logout page if failed to refresh access token
-          window.location.href = LOGOUT_URL;
-
-          return;
-        }
-
-        // Update the access token in local storage
-        localStorage.setItem(
-          process.env.NEXT_PUBLIC_ACCESS_TOKEN_NAME!,
-          accessToken
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/auth/refresh`,
+          { refreshToken }
         );
+        const { accessToken, refreshToken: newRefreshToken } = response.data;
+        useAuthStore
+          .getState()
+          .setTokens({ accessToken, refreshToken: newRefreshToken });
 
         // Retry the original request with the new access token
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-
         return axiosInstance(originalRequest);
-      } catch (refreshError) {
-        console.error('Token refresh failed:', refreshError);
-
-        // Redirect to logout page if failed to refresh access token
-        window.location.href = LOGOUT_URL;
-
-        return;
+      } catch (err) {
+        useAuthStore.getState().signout();
+        window.location.href = '/auth/signin';
+        return Promise.reject(err);
       }
-    }
-
-    if (error.response?.status === 401 && originalRequest._retry) {
-      // Redirect to logout page if refresh token is invalid
-      window.location.href = LOGOUT_URL;
-
-      return;
     }
 
     return Promise.reject(error);
@@ -215,6 +188,62 @@ const searchPlaces = async (query: SearchPlaceQuery) => {
   }
 };
 
+const signin = async (credentials: SigninCredentials) => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/auth/signin`,
+      method: 'POST',
+      data: credentials,
+    });
+
+    if (!data) {
+      throw new Error('Failed to signin');
+    }
+
+    return data as Tokens;
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      throw new Error('電郵地址或密碼不正確');
+    }
+    throw new Error(`未能登入: ${error.message}`);
+  }
+};
+
+const signout = async () => {
+  try {
+    const refreshToken = useAuthStore.getState().refreshToken;
+
+    if (!refreshToken) {
+      throw new Error('Refresh token not found');
+    }
+
+    await createRequest({
+      url: `v1/auth/signout`,
+      method: 'POST',
+      data: { refreshToken },
+    });
+  } catch (error: any) {
+    throw new Error(`未能登出: ${error.message}`);
+  }
+};
+
+const getMyProfile = async () => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/users/me`,
+      method: 'GET',
+    });
+
+    if (!data) {
+      throw new Error('Profile not found');
+    }
+
+    return data as User;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch profile: ${error.message}`);
+  }
+};
+
 export default {
   getRecommendedPlaces,
   getCategories,
@@ -222,4 +251,7 @@ export default {
   getAllAreas,
   getPlaceDetail,
   searchPlaces,
+  signin,
+  signout,
+  getMyProfile,
 };

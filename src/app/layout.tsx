@@ -1,9 +1,9 @@
 import { Inter } from 'next/font/google';
-import Link from 'next/link';
 
 import './globals.css';
 import type { Metadata } from 'next';
 
+import { Header } from '@/components/Header';
 import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,13 +23,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${inter.className} relative min-h-screen`}>
         <ReactQueryClientProvider>
-          <header className='bg-white shadow-sm'>
-            <div className='container mx-auto px-4 py-3'>
-              <h1 className='text-2xl font-bold text-red-600'>
-                <Link href='/'>StudyHub</Link>
-              </h1>
-            </div>
-          </header>
+          <Header />
           <div className='pb-[80px]'>{children}</div>
           <footer className='bg-gray-100 p-4 mt-12 absolute bottom-0 w-full'>
             <div className='container mx-auto text-sm text-gray-600'>

@@ -26,6 +26,7 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/modules/*": ["src/modules/*"],
       "@/providers/*": ["src/providers/*"],
+      "@/schemas/*": ["src/schemas/*"],
       "@/services/*": ["src/services/*"],
       "@/stores/*": ["src/stores/*"],
       "@/styles/*": ["src/styles/*"],

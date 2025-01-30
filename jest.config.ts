@@ -19,6 +19,7 @@ const config: Config = {
     '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
     '^@/providers/(.*)$': '<rootDir>/src/providers/$1',
+    '^@/schemas/(.*)$': '<rootDir>/src/schemas/$1',
     '^@/services/(.*)$': '<rootDir>/src/services/$1',
     '^@/stores/(.*)$': '<rootDir>/src/stores/$1',
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',

@@ -43,7 +43,7 @@ export default function Home() {
       <HeroBanner />
       <div className='container mx-auto px-4 py-12'>
         <section className='mb-16'>
-          <h2 className='text-2xl font-semibold mb-4'>必去地點</h2>
+          <h2 className='text-2xl font-semibold mb-4'>精選地點</h2>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
             {recommendedPlacesStatus === 'pending'
               ? Array.from({ length: 6 }).map((_, index) => (
