@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 import { useAuthStore } from '@/stores/auth.store';
-import { SigninCredentials, Tokens } from '@/types/auth.type';
+import {
+  SigninCredentials,
+  SignupCredentials,
+  Tokens,
+} from '@/types/auth.type';
 import { Pagination } from '@/types/Pagination.type';
 import {
   Place,
@@ -188,6 +192,26 @@ const searchPlaces = async (query: SearchPlaceQuery) => {
   }
 };
 
+const signup = async (credentials: SignupCredentials) => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/auth/register`,
+      method: 'POST',
+      data: credentials,
+    });
+
+    if (!data) {
+      throw new Error('Failed to signup');
+    }
+
+    return data as Tokens;
+  } catch (error: any) {
+    throw new Error(
+      `未能註冊: ${error?.response?.data?.message || error.message}`
+    );
+  }
+};
+
 const signin = async (credentials: SigninCredentials) => {
   try {
     const { data } = await createRequest({
@@ -244,6 +268,24 @@ const getMyProfile = async () => {
   }
 };
 
+const updateMyProfile = async (payload: Partial<User>) => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/users/me`,
+      method: 'PATCH',
+      data: payload,
+    });
+
+    if (!data) {
+      throw new Error('Profile not found');
+    }
+
+    return data as User;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch profile: ${error.message}`);
+  }
+};
+
 export default {
   getRecommendedPlaces,
   getCategories,
@@ -251,7 +293,9 @@ export default {
   getAllAreas,
   getPlaceDetail,
   searchPlaces,
+  signup,
   signin,
   signout,
   getMyProfile,
+  updateMyProfile,
 };

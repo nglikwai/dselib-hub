@@ -15,6 +15,7 @@ import {
 } from '@/components/components/ui/form';
 import { Input } from '@/components/components/ui/input';
 import { toast } from '@/components/hooks/use-toast';
+import ApiService from '@/services/api';
 import { User } from '@/types/user.type';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -30,16 +31,16 @@ export default function ProfileForm({ profile }: { profile: User }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: profile.email,
-      displayName: profile.displayName,
+      displayName: profile.displayName || '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Here you would typically send this data to your server
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { email, ...updates } = values;
+    await ApiService.updateMyProfile(updates);
     toast({
-      title: 'Profile updated',
-      description: 'Your profile has been successfully updated.',
+      title: '成功更新個人檔案',
+      description: '你的個人檔案已成功更新。',
     });
   }
 

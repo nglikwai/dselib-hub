@@ -12,7 +12,6 @@ import { Button } from '@/components/components/ui/button';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/components/ui/card';
@@ -31,7 +30,7 @@ import ApiService from '@/services/api';
 import { useAuthStore } from '@/stores/auth.store';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-export function SigninForm({
+export function SignupForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
@@ -51,11 +50,11 @@ export function SigninForm({
     setError(null);
 
     try {
-      const tokens = await ApiService.signin(data);
+      const tokens = await ApiService.signup(data);
       setTokens(tokens);
       router.push('/');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Signin failed');
+      setError(err instanceof Error ? err.message : '註冊失敗');
     } finally {
       setLoading(false);
     }
@@ -71,8 +70,7 @@ export function SigninForm({
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className='text-2xl'>登入</CardTitle>
-          <CardDescription>使用您的電郵地址和密碼登入</CardDescription>
+          <CardTitle className='text-2xl'>註冊</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -109,12 +107,6 @@ export function SigninForm({
                   <FormItem>
                     <div className='flex items-center justify-between'>
                       <FormLabel>密碼</FormLabel>
-                      {/* <Link
-                        href='/auth/forgot-password'
-                        className='text-sm text-muted-foreground hover:underline'
-                      >
-                        忘記密碼?
-                      </Link> */}
                     </div>
                     <FormControl>
                       <Input {...field} type='password' disabled={isLoading} />
@@ -128,24 +120,20 @@ export function SigninForm({
                 {isLoading ? (
                   <>
                     <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                    登入中...
+                    註冊中...
                   </>
                 ) : (
-                  '登入'
+                  '註冊'
                 )}
               </Button>
 
-              {/* <Button variant='outline' className='w-full'>
-                使用 Google 登入
-              </Button> */}
-
               <div className='text-center text-sm text-muted-foreground'>
-                未有帳戶?{' '}
+                已有帳戶?{' '}
                 <Link
-                  href='/auth/signup'
+                  href='/auth/signin'
                   className='text-primary hover:underline'
                 >
-                  立即註冊
+                  立即登入
                 </Link>
               </div>
             </form>
