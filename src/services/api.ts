@@ -12,6 +12,7 @@ import {
   PlaceArea,
   PlaceCategory,
   PlaceOverview,
+  PlaceReview,
   SearchPlaceQuery,
 } from '@/types/Place.type';
 import { User } from '@/types/user.type';
@@ -42,7 +43,7 @@ axiosInstance.interceptors.response.use(
     const targetUrl = originalRequest.url;
 
     // Return error if the request is for signin
-    if (targetUrl === 'v1/auth/signin') {
+    if (targetUrl === 'v1/auth/signin' || targetUrl === 'v1/users/me') {
       return Promise.reject(error);
     }
 
@@ -286,6 +287,44 @@ const updateMyProfile = async (payload: Partial<User>) => {
   }
 };
 
+const createPlaceReview = async (
+  placeId: number,
+  payload: Pick<PlaceReview, 'rating' | 'content'>
+) => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/places/${placeId}/reviews`,
+      method: 'POST',
+      data: payload,
+    });
+
+    if (!data) {
+      throw new Error('Place review not created');
+    }
+
+    return data as PlaceReview[];
+  } catch (error: any) {
+    throw new Error(`Failed to create place review: ${error.message}`);
+  }
+};
+
+const getPlaceReviews = async (placeId: number) => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/places/${placeId}/reviews`,
+      method: 'GET',
+    });
+
+    if (!data) {
+      throw new Error('Place reviews not found');
+    }
+
+    return data as PlaceReview[];
+  } catch (error: any) {
+    throw new Error(`Failed to fetch place reviews: ${error.message}`);
+  }
+};
+
 export default {
   getRecommendedPlaces,
   getCategories,
@@ -298,4 +337,6 @@ export default {
   signout,
   getMyProfile,
   updateMyProfile,
+  createPlaceReview,
+  getPlaceReviews,
 };

@@ -26,6 +26,11 @@ export default async function PlaceDetailPage({
     queryFn: () => ApiService.getPlaceDetail(parsedId),
   });
 
+  await queryClient.prefetchQuery({
+    queryKey: [QUERY_KEYS.PLACE_REVIEWS, parsedId],
+    queryFn: () => ApiService.getPlaceReviews(parsedId),
+  });
+
   return (
     <Suspense>
       <HydrationBoundary state={dehydrate(queryClient)}>

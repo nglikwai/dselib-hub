@@ -18,15 +18,12 @@ import {
 
 import PlaceDetailsSkeleton from './loading';
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/components/ui/card';
 import RelatedPlaces from '@/components/Place/RelatedPlaces';
 import { QUERY_KEYS } from '@/constants/index';
+import { PlaceReviewCard } from '@/modules/place/components/PlaceReviewCard';
+import { PlaceReviewForm } from '@/modules/place/components/PlaceReviewForm';
 import ApiService from '@/services/api';
+import { PlaceReview } from '@/types/Place.type';
 
 interface Props {
   placeId: number;
@@ -60,8 +57,6 @@ const OPENING_HOURS: WeekendType = {
   holiday: '公眾假期',
 };
 
-const reviews: any[] = [];
-
 const getScrollOffset = () => {
   const tabHeight = 60; // Approximate height of the tab
   const additionalOffset = 16; // Extra space for visual comfort
@@ -73,6 +68,12 @@ export default function PlaceDetails(props: Props) {
   const { data: place, status } = useQuery({
     queryKey: [QUERY_KEYS.PLACE_DETAIL, placeId],
     queryFn: () => ApiService.getPlaceDetail(placeId),
+    retry: 2,
+    retryDelay: attempt => Math.min(1000 * 2 ** attempt, 30000),
+  });
+  const { data: reviews } = useQuery({
+    queryKey: [QUERY_KEYS.PLACE_REVIEWS, placeId],
+    queryFn: () => ApiService.getPlaceReviews(placeId),
     retry: 2,
     retryDelay: attempt => Math.min(1000 * 2 ** attempt, 30000),
   });
@@ -121,6 +122,20 @@ export default function PlaceDetails(props: Props) {
     setActiveTab(tab);
   };
 
+  const handleNewReview = async (
+    data: Pick<PlaceReview, 'rating' | 'content'>
+  ) => {
+    console.log('Storing review:');
+    console.log(data);
+    try {
+      await ApiService.createPlaceReview(placeId, data);
+
+      window.location.reload();
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
+
   if (status === 'pending') {
     return <PlaceDetailsSkeleton />;
   }
@@ -137,11 +152,14 @@ export default function PlaceDetails(props: Props) {
     <div className='container mx-auto px-4 py-8 pt-12'>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
         <div className='md:col-span-2'>
-          <h1 className='text-3xl font-bold mb-2'>{place.nameZhHk}</h1>
+          <h1 className='text-3xl font-bold mb-2'>
+            {place.nameZhHk}
+            {place.operationStatus === 'PERM_CLOSED' ? '（已結束營業）' : ''}
+          </h1>
           <div className='flex items-center mb-6'>
             <Star className='w-5 h-5 text-yellow-400 mr-1' />
             <span className='font-semibold mr-2'>4.0</span>
-            <span className='text-gray-600'>({0} 評論)</span>
+            {/* <span className='text-gray-600'>({0} 評論)</span> */}
             <span className='mx-2'>•</span>
             <span>{place.area.nameZhHk}</span>
             <span className='mx-2'>•</span>
@@ -189,72 +207,45 @@ export default function PlaceDetails(props: Props) {
             {place.descriptionZhHk && <p>{place.descriptionZhHk}</p>}
 
             <div className='space-y-4 pt-8 mb-6'>
-              {place.addressZhHk && (
-                <div className='flex items-start'>
-                  <MapPin className='w-5 h-5 mr-2 mt-1 shrink-0' />
-                  <div>
-                    <h3 className='font-semibold'>地址</h3>
-                    <p>{place.addressZhHk}</p>
-                  </div>
+              <div className='flex items-start'>
+                <MapPin className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <div>
+                  <h3 className='font-semibold'>地址</h3>
+                  <p>{place.addressZhHk ?? '未有資料'}</p>
                 </div>
-              )}
+              </div>
 
-              {place.telephone && (
-                <div className='flex items-start'>
-                  <Phone className='w-5 h-5 mr-2 mt-1 shrink-0' />
-                  <div>
-                    <h3 className='font-semibold'>電話</h3>
-                    <p>{place.telephone}</p>
-                  </div>
+              <div className='flex items-start'>
+                <Phone className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <div>
+                  <h3 className='font-semibold'>電話</h3>
+                  <p>{place.telephone ?? '未有資料'}</p>
                 </div>
-              )}
+              </div>
 
-              {place.website && (
-                <div className='flex items-start'>
-                  <Globe className='w-5 h-5 mr-2 mt-1 shrink-0' />
-                  <div>
-                    <h3 className='font-semibold'>網站</h3>
-                    <a
-                      href={place.website}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-blue-600 hover:underline'
-                    >
-                      {place.website}
-                    </a>
-                  </div>
+              <div className='flex items-start'>
+                <Train className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <div>
+                  <h3 className='font-semibold'>地鐵</h3>
+                  <p>{place.transportMtr ?? '未有資料'}</p>
                 </div>
-              )}
+              </div>
 
-              {place.transportMtr && (
-                <div className='flex items-start'>
-                  <Train className='w-5 h-5 mr-2 mt-1 shrink-0' />
-                  <div>
-                    <h3 className='font-semibold'>地鐵</h3>
-                    <p>{place.transportMtr}</p>
-                  </div>
+              <div className='flex items-start'>
+                <Bus className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <div>
+                  <h3 className='font-semibold'>巴士</h3>
+                  <p>{place.transportBus ?? '未有資料'}</p>
                 </div>
-              )}
+              </div>
 
-              {place.transportBus && (
-                <div className='flex items-start'>
-                  <Bus className='w-5 h-5 mr-2 mt-1 shrink-0' />
-                  <div>
-                    <h3 className='font-semibold'>巴士</h3>
-                    <p>{place.transportBus}</p>
-                  </div>
+              <div className='flex items-start'>
+                <BusFront className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <div>
+                  <h3 className='font-semibold'>小巴</h3>
+                  <p>{place.transportMinibus ?? '未有資料'}</p>
                 </div>
-              )}
-
-              {place.transportMinibus && (
-                <div className='flex items-start'>
-                  <BusFront className='w-5 h-5 mr-2 mt-1 shrink-0' />
-                  <div>
-                    <h3 className='font-semibold'>小巴</h3>
-                    <p>{place.transportMinibus}</p>
-                  </div>
-                </div>
-              )}
+              </div>
 
               {place.openingHours && (
                 <div className='flex items-start'>
@@ -298,6 +289,23 @@ export default function PlaceDetails(props: Props) {
                   </div>
                 </div>
               )}
+
+              {place.website && (
+                <div className='flex items-start'>
+                  <Globe className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                  <div>
+                    <h3 className='font-semibold'>網站</h3>
+                    <a
+                      href={place.website}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-blue-600 hover:underline'
+                    >
+                      {place.website}
+                    </a>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* <h2 className='text-1xl font-semibold mb-4'>服務及設施</h2>
@@ -331,28 +339,27 @@ export default function PlaceDetails(props: Props) {
           </div>
 
           <div ref={reviewsRef} className='pt-8'>
-            {reviews && reviews.length === 0 && (
-              <div>
-                <h2 className='text-2xl font-semibold mb-4'>評論</h2>
-                <p className='text-gray-600'>(暫無評論)</p>
-              </div>
-            )}
+            <div>
+              <h2 className='text-2xl font-semibold mb-4'>評論</h2>
 
-            {reviews && reviews.length > 0 && (
-              <div>
-                <h2 className='text-2xl font-semibold mb-4'>評論</h2>
-                {reviews.map(review => (
-                  <Card key={review.id} className='mb-4'>
-                    <CardHeader>
-                      <CardTitle>{review.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>{review.content}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+              <div className='mb-8 relative'>
+                <PlaceReviewForm onSubmit={handleNewReview} />
               </div>
-            )}
+
+              {reviews && reviews.length === 0 && (
+                <div className='flex items-center justify-center'>暫無評論</div>
+              )}
+
+              {reviews && reviews.length > 0 && (
+                <div>
+                  {reviews.map(review => (
+                    <div key={review.id} className='mb-4'>
+                      <PlaceReviewCard review={review} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

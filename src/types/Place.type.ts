@@ -1,3 +1,5 @@
+import { User } from './user.type';
+
 export interface PlaceOverview {
   id: number;
   nameZhHk?: string | null;
@@ -33,6 +35,12 @@ export interface Place {
     sun: string;
     holiday?: string | null;
   } | null;
+  operationStatus?:
+    | 'NORMAL'
+    | 'PERM_CLOSED'
+    | 'TEMP_CLOSED'
+    | 'RENOVATION'
+    | null;
   ref?: string | null;
   remarks?: string | null;
   area: PlaceArea;
@@ -68,4 +76,12 @@ export interface SearchPlaceQuery {
   categoryIds?: number[];
   page?: number;
   limit?: number;
+}
+
+export interface PlaceReview {
+  id: number;
+  rating: number;
+  content: string;
+  createdAt: string;
+  author: User;
 }
