@@ -32,7 +32,9 @@ export const HeaderRight = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const user = await ApiService.getMyProfile();
-      setUser(user);
+      if (user) {
+        setUser(user);
+      }
     };
     if (accessToken) {
       fetchUser();
