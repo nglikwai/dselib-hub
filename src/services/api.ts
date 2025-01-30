@@ -264,8 +264,9 @@ const getMyProfile = async () => {
     }
 
     return data as User;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error: any) {
-    throw new Error(`Failed to fetch profile: ${error.message}`);
+    return null;
   }
 };
 
