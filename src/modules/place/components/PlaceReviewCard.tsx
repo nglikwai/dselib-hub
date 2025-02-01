@@ -19,7 +19,9 @@ export const PlaceReviewCard = ({ review }: { review: PlaceReview }) => {
       <CardContent className='pt-6'>
         <div className='flex items-start justify-between mb-2'>
           <div>
-            <h3 className='font-medium'>{review.author.email}</h3>
+            <h3 className='font-medium'>
+              {review.author.displayName ?? review.author.email}
+            </h3>
             <p className='text-sm text-muted-foreground'>
               {dayjs(review.createdAt).format('YYYY-MM-DD HH:mm:ss')}
             </p>
