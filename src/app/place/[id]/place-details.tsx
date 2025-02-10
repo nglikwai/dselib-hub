@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Link from 'next/link';
 
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -18,6 +18,7 @@ import {
 
 import PlaceDetailsSkeleton from './loading';
 
+import PhotoGallery from '@/components/PhotoGallery';
 import RelatedPlaces from '@/components/Place/RelatedPlaces';
 import { QUERY_KEYS } from '@/constants/index';
 import { PlaceReviewCard } from '@/modules/place/components/PlaceReviewCard';
@@ -144,9 +145,7 @@ export default function PlaceDetails(props: Props) {
     return null;
   }
 
-  const images = [
-    place.thumbnailUrl ?? '/static/icons/placeholder.svg?height=300&width=400',
-  ];
+  const images = place.thumbnailObj ? [place.thumbnailObj] : [];
 
   return (
     <div className='container mx-auto px-4 py-8 pt-12'>
@@ -161,10 +160,21 @@ export default function PlaceDetails(props: Props) {
             <span className='font-semibold mr-2'>4.0</span>
             {/* <span className='text-gray-600'>({0} 評論)</span> */}
             <span className='mx-2'>•</span>
-            <span>{place.area.nameZhHk}</span>
+            <span>
+              <Link href={`/search?areaIds=${place.area.id}`}>
+                {place.area.nameZhHk}
+              </Link>
+            </span>
             <span className='mx-2'>•</span>
             <span>
-              {place.categories.map(category => category.nameZhHk).join('/')}
+              {place.categories.map((category, index) => (
+                <span key={category.id}>
+                  <Link href={`/search?categoryIds=${category.id}`}>
+                    {category.nameZhHk}
+                  </Link>
+                  {index !== place.categories.length - 1 && <span> / </span>}
+                </span>
+              ))}
             </span>
           </div>
 
@@ -324,18 +334,11 @@ export default function PlaceDetails(props: Props) {
 
           <div ref={photosRef} className='pt-8'>
             <h2 className='text-2xl font-semibold mb-4'>相片</h2>
-            <div className='grid grid-cols-2 gap-4 mb-8'>
-              {images.map((image, index) => (
-                <Image
-                  key={index}
-                  src={image || '/placeholder.svg'}
-                  alt={`${place.nameZhHk} - Photo ${index + 1}`}
-                  width={400}
-                  height={300}
-                  className='rounded-lg object-cover w-full h-48'
-                />
-              ))}
-            </div>
+            {images.length === 0 ? (
+              '暫無相片'
+            ) : (
+              <PhotoGallery images={images} />
+            )}
           </div>
 
           <div ref={reviewsRef} className='pt-8'>
@@ -347,7 +350,7 @@ export default function PlaceDetails(props: Props) {
               </div>
 
               {(!reviews || (reviews && reviews.length === 0)) && (
-                <div className='flex items-center justify-center'>暫無評論</div>
+                <div className='flex items-center'>暫無評論</div>
               )}
 
               {reviews && reviews.length > 0 && (

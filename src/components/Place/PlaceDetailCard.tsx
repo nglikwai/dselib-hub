@@ -16,8 +16,8 @@ export function PlaceDetailCard({ place }: { place: Place }) {
     <Card className='overflow-hidden hover:shadow-lg'>
       <Image
         src={
-          place.thumbnailUrl && place.thumbnailUrl.length > 0
-            ? place.thumbnailUrl
+          place.thumbnailObj && place.thumbnailObj.url.length > 0
+            ? place.thumbnailObj.url
             : 'https://lh3.googleusercontent.com/d/15waUD5ic0WeenHxbZyHAC_I5u2IFVCe0'
         }
         alt={place.nameZhHk ?? place.nameEnUs ?? ''}

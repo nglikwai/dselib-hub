@@ -175,6 +175,23 @@ const getPlaceDetail = async (id: number) => {
   }
 };
 
+const getRelatedPlaces = async (id: number) => {
+  try {
+    const { data } = await createRequest({
+      url: `v1/places/${id}/related`,
+      method: 'GET',
+    });
+
+    if (!data) {
+      throw new Error('Related places not found');
+    }
+
+    return data as Pagination<Place>;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch related places: ${error.message}`);
+  }
+};
+
 const searchPlaces = async (query: SearchPlaceQuery) => {
   try {
     const { data } = await createRequest({
@@ -332,6 +349,7 @@ export default {
   getPopularAreas,
   getAllAreas,
   getPlaceDetail,
+  getRelatedPlaces,
   searchPlaces,
   signup,
   signin,

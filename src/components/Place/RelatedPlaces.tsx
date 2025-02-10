@@ -21,14 +21,7 @@ const RelatedPlaces = (props: Props) => {
   const { originalPlace } = props;
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.RELATED_PLACES, originalPlace?.id],
-    queryFn: () =>
-      ApiService.searchPlaces({
-        page: 1,
-        limit: 6,
-        ...(originalPlace?.area?.id
-          ? { areaIds: [originalPlace.area.id] }
-          : {}),
-      }),
+    queryFn: () => ApiService.getRelatedPlaces(originalPlace?.id as number),
     retry: 2,
     retryDelay: attempt => Math.min(1000 * 2 ** attempt, 30000),
   });
@@ -40,7 +33,7 @@ const RelatedPlaces = (props: Props) => {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle className='text-2xl'>相關地點</CardTitle>
+          <CardTitle className='text-2xl'>你可能也感興趣...</CardTitle>
         </CardHeader>
         <CardContent>
           {relatedPlaces?.length === 0 && (

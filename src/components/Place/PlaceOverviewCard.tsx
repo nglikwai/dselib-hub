@@ -11,8 +11,8 @@ export function PlaceOverviewCard({ place }: { place: PlaceOverview }) {
           <div className='pr-4 w-1/3 shrink-0'>
             <Image
               src={
-                place.thumbnailUrl && place.thumbnailUrl.length > 0
-                  ? place.thumbnailUrl
+                place.thumbnailObj && place.thumbnailObj.url.length > 0
+                  ? place.thumbnailObj.url
                   : 'https://lh3.googleusercontent.com/d/15waUD5ic0WeenHxbZyHAC_I5u2IFVCe0'
               }
               alt={place.nameZhHk ?? place.nameEnUs ?? ''}

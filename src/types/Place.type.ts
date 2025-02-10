@@ -1,10 +1,11 @@
+import { Image } from './Image.type';
 import { User } from './user.type';
 
 export interface PlaceOverview {
   id: number;
   nameZhHk?: string | null;
   nameEnUs?: string | null;
-  thumbnailUrl?: string | null;
+  thumbnailObj?: Image | null;
   area: PlaceArea;
   categories: PlaceCategory[];
 }
@@ -13,7 +14,7 @@ export interface Place {
   id: number;
   nameZhHk?: string | null;
   nameEnUs?: string | null;
-  thumbnailUrl?: string | null;
+  thumbnailObj?: Image | null;
   addressZhHk?: string | null;
   addressEnUs?: string | null;
   telephone?: string | null;
