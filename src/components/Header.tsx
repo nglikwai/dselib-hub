@@ -21,11 +21,18 @@ export const Header = () => {
           {items.map(item => {
             const Icon = item.icon;
             return (
-              <Button variant={'ghost'} className='group' key={item.text}>
-                <Icon />
-                <span className='overflow-x-hidden w-0 group-hover:w-32 transition-all'>
-                  {item.text}
-                </span>
+              <Button
+                variant={'ghost'}
+                className='group'
+                key={item.text}
+                asChild
+              >
+                <Link href={item.link}>
+                  <Icon />
+                  <span className='overflow-x-hidden w-0 group-hover:w-32 transition-all'>
+                    {item.text}
+                  </span>
+                </Link>
               </Button>
             );
           })}
