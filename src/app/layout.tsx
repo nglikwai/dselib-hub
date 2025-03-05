@@ -21,13 +21,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${inter.className} relative min-h-screen`}>
+      <body
+        className={`${inter.className} relative min-h-screen overscroll-none`}
+      >
         <ReactQueryClientProvider>
           <Header />
-          <div className='pb-[80px]'>{children}</div>
-          <footer className='bg-gray-100 p-4 mt-12 absolute bottom-0 w-full'>
-            <div className='container mx-auto text-sm text-gray-600'>
-              © {new Date().getFullYear()} StudyHub. All rights reserved.
+          <div>{children}</div>
+          <footer className='border-t border-dashed'>
+            <div className='container border-dashed border-l border-r mx-auto p-6 text-sm text-neutral-500'>
+              © {new Date().getFullYear()} dselib. all rights reserved.
             </div>
           </footer>
         </ReactQueryClientProvider>

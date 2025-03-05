@@ -2,6 +2,8 @@ import Image from 'next/image';
 
 import { MapPin, Star } from 'lucide-react';
 
+import { Badge } from '../components/ui/badge';
+
 import {
   Card,
   CardContent,
@@ -27,7 +29,9 @@ export function PlaceDetailCard({ place }: { place: Place }) {
         priority
       />
       <CardHeader>
-        <CardTitle className='line-clamp-1'>{place.nameZhHk}</CardTitle>
+        <CardTitle className='line-clamp-1 text-lg font-[400]'>
+          {place.nameZhHk}
+        </CardTitle>
         <CardDescription className='flex items-end text-neutral-500 '>
           <MapPin size={18} className='mr-1' />
           {place.area.nameZhHk}
@@ -35,18 +39,15 @@ export function PlaceDetailCard({ place }: { place: Place }) {
       </CardHeader>
       <CardContent>
         <div className='flex justify-between items-center'>
-          <div className='flex items-center pr-1'>
-            <Star className='w-5 h-5 text-yellow-400 mr-1' />
+          <div className='flex items-center pr-1 gap-2'>
+            <Star size={18} className='text-yellow-400 fill-yellow-400' />
             <span>4.0</span>
           </div>
           <div>
             {place.categories.map(category => (
-              <span
-                key={category.id}
-                className='text-sm text-neutral-500 border border-neutral-200 px-2 py-1 rounded-full line-clamp-1'
-              >
+              <Badge key={category.id} variant={'secondary'}>
                 {category.nameZhHk}
-              </span>
+              </Badge>
             ))}
           </div>
         </div>

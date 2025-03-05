@@ -31,9 +31,9 @@ const RelatedPlaces = (props: Props) => {
   const { data: relatedPlaces } = data;
   return (
     <div>
-      <Card>
-        <CardHeader>
-          <CardTitle className='text-2xl'>你可能也感興趣...</CardTitle>
+      <Card className='shadow-none border-none'>
+        <CardHeader className=' pt-0'>
+          <CardTitle className='text-lg'>你可能也感興趣...</CardTitle>
         </CardHeader>
         <CardContent>
           {relatedPlaces?.length === 0 && (

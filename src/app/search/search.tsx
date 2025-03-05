@@ -134,9 +134,10 @@ export default function SearchPage({
   );
 
   return (
-    <div className='min-h-screen container mx-auto px-4 py-3'>
-      <div className='flex flex-col md:flex-row'>
-        <div className='hidden md:block py-4 md:py-6 w-60 shrink-0'>
+    <div className='min-h-screen container mx-auto border-l border-r border-dashed'>
+      <div className='flex flex-col md:flex-row gap-6 '>
+        {/* Search */}
+        <div className='hidden md:block py-4 md:py-10 w-60 shrink-0 border-r border-dashed px-6'>
           <Sidebar
             initialSearchTerm={query}
             initialFilters={{ areaIds, categoryIds }}
@@ -169,8 +170,8 @@ export default function SearchPage({
             onSearch={handleSearch}
             onOpenFilters={() => setIsFilterOpen(true)}
           />
-          <div className='p-4 md:p-6'>
-            <h1 className='text-2xl font-bold mb-6'>搜尋結果</h1>
+          <div className='p-4 md:py-10 md:px-8'>
+            <h1 className='text-2xl font-medium mb-6'>搜尋結果</h1>
 
             <>
               {isLoading ? (
@@ -183,7 +184,7 @@ export default function SearchPage({
                 </>
               ) : res?.data?.length ? (
                 <>
-                  <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6'>
+                  <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-6 md:gap-y-12'>
                     {res.data.map(place => (
                       <Link key={place.id} href={`/place/${place.id}`}>
                         <PlaceDetailCard place={place} />

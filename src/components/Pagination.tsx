@@ -43,7 +43,7 @@ export function Pagination({
   const pageNumbers = getPageNumbers();
 
   return (
-    <div className='flex flex-wrap items-center justify-center space-x-2 mt-8'>
+    <div className='flex flex-wrap items-center justify-center space-x-2 mt-20'>
       <Button
         variant='outline'
         size='icon'

@@ -84,7 +84,7 @@ export function Sidebar({
   };
 
   return (
-    <div className='h-full overflow-y-auto'>
+    <div className='h-full'>
       <div className='mb-6 hidden md:block'>
         <Label htmlFor='search' className='sr-only'>
           輸入文字搜尋
@@ -116,9 +116,9 @@ export function Sidebar({
       </h2>
 
       <div className='mb-6'>
-        <h3 className='text-md font-medium mb-2'>地點類型</h3>
+        <h3 className='mb-2'>地點類型</h3>
         {categories.map(category => (
-          <div key={category.id} className='flex items-center space-x-2 mb-2'>
+          <div key={category.id} className='flex items-center space-x-4 mb-2'>
             <Checkbox
               id={`category-${category.id}`}
               checked={filters.categoryIds.includes(category.id)}
@@ -127,23 +127,25 @@ export function Sidebar({
               }
             />
             <Label htmlFor={`category-${category.id}`}>
-              <span className='cursor-pointer'>{category.nameZhHk}</span>
+              <span className='cursor-pointer font-light'>
+                {category.nameZhHk}
+              </span>
             </Label>
           </div>
         ))}
       </div>
 
       <div>
-        <h3 className='text-md font-medium mb-2 flex items-center'>地區</h3>
+        <h3 className='mb-2 flex items-center'>地區</h3>
         {areas.map(area => (
-          <div key={area.id} className='flex items-center space-x-2 mb-2'>
+          <div key={area.id} className='flex items-center space-x-4 mb-2'>
             <Checkbox
               id={`area-${area.id}`}
               checked={filters.areaIds.includes(area.id)}
               onCheckedChange={() => handleFilterChange('areaIds', area.id)}
             />
             <Label htmlFor={`area-${area.id}`}>
-              <span className='cursor-pointer'>{area.nameZhHk}</span>
+              <span className='cursor-pointer font-light'>{area.nameZhHk}</span>
             </Label>
           </div>
         ))}

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
 
-import { LogIn, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -61,6 +61,19 @@ export function PlaceReviewForm({ onSubmit }: ReviewFormProps) {
     router.push('/auth/signin');
   };
 
+  if (!user) {
+    return (
+      <div className=' inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center'>
+        <div className='text-center'>
+          <p className='text-sm text-muted-foreground mb-4'>
+            您需要登入才能發表評論
+          </p>
+          <Button onClick={handleLogin}>登入</Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Form {...form}>
       <Card>
@@ -113,19 +126,6 @@ export function PlaceReviewForm({ onSubmit }: ReviewFormProps) {
               提交評論
             </Button>
           </form>
-
-          {!user && (
-            <div className='absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center'>
-              <div className='text-center'>
-                <LogIn className='mx-auto h-12 w-12 text-muted-foreground mb-4' />
-                <h4 className='text-lg font-semibold mb-2'>請先登入</h4>
-                <p className='text-sm text-muted-foreground mb-4'>
-                  您需要登入才能發表評論
-                </p>
-                <Button onClick={handleLogin}>登入</Button>
-              </div>
-            </div>
-          )}
         </CardContent>
       </Card>
     </Form>

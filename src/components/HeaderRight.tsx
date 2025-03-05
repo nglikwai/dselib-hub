@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { useEffect } from 'react';
 
-import { User } from 'lucide-react';
+import { User, User2 } from 'lucide-react';
 
 import {
   Avatar,
@@ -70,7 +70,11 @@ export const HeaderRight = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Link href={`/auth/signin`}>登入</Link>
+        <Button asChild variant={'ghost'}>
+          <Link href={`/auth/signin`}>
+            <User2 size={20} />
+          </Link>
+        </Button>
       )}
     </div>
   );

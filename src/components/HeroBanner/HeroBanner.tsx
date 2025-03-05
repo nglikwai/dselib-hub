@@ -231,7 +231,8 @@ export const HeroBanner = () => {
             )}
             <Button
               type='submit'
-              className='absolute right-0 top-0 h-12 px-4 bg-red-600 hover:bg-red-700'
+              variant={'ghost'}
+              className='absolute right-0 top-0 h-12 px-4 '
             >
               <Search className='h-5 w-5' />
             </Button>

@@ -148,15 +148,15 @@ export default function PlaceDetails(props: Props) {
   const images = place.thumbnailObj ? [place.thumbnailObj] : [];
 
   return (
-    <div className='container mx-auto px-4 py-8 pt-12'>
+    <div className='container mx-auto px-6 border-l border-r border-dashed'>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-        <div className='md:col-span-2'>
-          <h1 className='text-3xl font-bold mb-2'>
+        <div className='md:col-span-2 border-r border-dashed pr-12 py-10 leading-8'>
+          <h1 className='text-3xl font-bold mb-3 tracking-tight'>
             {place.nameZhHk}
             {place.operationStatus === 'PERM_CLOSED' ? '（已結束營業）' : ''}
           </h1>
-          <div className='flex items-center mb-6'>
-            <Star className='w-5 h-5 text-yellow-400 mr-1' />
+          <div className='flex items-center mb-10'>
+            <Star className='w-5 h-5 text-yellow-400 fill-yellow-400 mr-1' />
             <span className='font-semibold mr-2'>4.0</span>
             {/* <span className='text-gray-600'>({0} 評論)</span> */}
             <span className='mx-2'>•</span>
@@ -182,7 +182,7 @@ export default function PlaceDetails(props: Props) {
             <div className='flex border-b'>
               <button
                 onClick={() => scrollToSection(overviewRef, TabEnum.Overview)}
-                className={`py-4 px-6 text-lg transition-colors duration-200 ${
+                className={`py-2 px-6 transition-colors duration-200 ${
                   activeTab === 'overview'
                     ? 'font-bold text-primary border-b-2 border-primary'
                     : 'text-gray-500 hover:text-gray-700'
@@ -192,7 +192,7 @@ export default function PlaceDetails(props: Props) {
               </button>
               <button
                 onClick={() => scrollToSection(photosRef, TabEnum.Photos)}
-                className={`py-4 px-6 text-lg transition-colors duration-200 ${
+                className={`py-2 px-6 transition-colors duration-200 ${
                   activeTab === 'photos'
                     ? 'font-bold text-primary border-b-2 border-primary'
                     : 'text-gray-500 hover:text-gray-700'
@@ -202,7 +202,7 @@ export default function PlaceDetails(props: Props) {
               </button>
               <button
                 onClick={() => scrollToSection(reviewsRef, TabEnum.Reviews)}
-                className={`py-4 px-6 text-lg transition-colors duration-200 ${
+                className={`py-2 px-6 transition-colors duration-200 ${
                   activeTab === 'reviews'
                     ? 'font-bold text-primary border-b-2 border-primary'
                     : 'text-gray-500 hover:text-gray-700'
@@ -216,9 +216,9 @@ export default function PlaceDetails(props: Props) {
           <div ref={overviewRef} className='pt-4 mb-6'>
             {place.descriptionZhHk && <p>{place.descriptionZhHk}</p>}
 
-            <div className='space-y-4 pt-8 mb-6'>
+            <div className='space-y-8 pt-8 mb-6'>
               <div className='flex items-start'>
-                <MapPin className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <MapPin className='w-5 h-5 mr-6 mt-[6px] shrink-0' />
                 <div>
                   <h3 className='font-semibold'>地址</h3>
                   <p>{place.addressZhHk ?? '未有資料'}</p>
@@ -226,7 +226,7 @@ export default function PlaceDetails(props: Props) {
               </div>
 
               <div className='flex items-start'>
-                <Phone className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <Phone className='w-5 h-5 mr-6 mt-[6px] shrink-0' />
                 <div>
                   <h3 className='font-semibold'>電話</h3>
                   <p>{place.telephone ?? '未有資料'}</p>
@@ -234,7 +234,7 @@ export default function PlaceDetails(props: Props) {
               </div>
 
               <div className='flex items-start'>
-                <Train className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <Train className='w-5 h-5 mr-6 mt-[6px] shrink-0' />
                 <div>
                   <h3 className='font-semibold'>地鐵</h3>
                   <p>{place.transportMtr ?? '未有資料'}</p>
@@ -242,7 +242,7 @@ export default function PlaceDetails(props: Props) {
               </div>
 
               <div className='flex items-start'>
-                <Bus className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <Bus className='w-5 h-5 mr-6 mt-[6px] shrink-0' />
                 <div>
                   <h3 className='font-semibold'>巴士</h3>
                   <p>{place.transportBus ?? '未有資料'}</p>
@@ -250,7 +250,7 @@ export default function PlaceDetails(props: Props) {
               </div>
 
               <div className='flex items-start'>
-                <BusFront className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                <BusFront className='w-5 h-5 mr-6 mt-[6px] shrink-0' />
                 <div>
                   <h3 className='font-semibold'>小巴</h3>
                   <p>{place.transportMinibus ?? '未有資料'}</p>
@@ -259,7 +259,7 @@ export default function PlaceDetails(props: Props) {
 
               {place.openingHours && (
                 <div className='flex items-start'>
-                  <Clock className='w-5 h-5 mr-2 mt-1 shrink-0' />
+                  <Clock className='w-5 h-5 mr-6 mt-[6px] shrink-0' />
                   <div>
                     <h3 className='font-semibold'>開放時間</h3>
                     <ul className='list-disc pl-6'>
@@ -366,7 +366,7 @@ export default function PlaceDetails(props: Props) {
           </div>
         </div>
 
-        <div>
+        <div className='py-10'>
           <RelatedPlaces originalPlace={place} />
         </div>
       </div>
