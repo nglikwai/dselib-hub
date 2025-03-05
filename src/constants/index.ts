@@ -10,3 +10,10 @@ export const QUERY_KEYS = {
   MY_PROFILE: 'MY_PROFILE',
   PLACE_REVIEWS: 'PLACE_REVIEWS',
 };
+
+export const webData = {
+  title: 'dselib',
+  slogan: 'DSE Past Paper 圖書館',
+  description:
+    '這裡收集了所有DSE, CE, AL 科目的歷屆試題，並按年份收錄，方便同學們讀取及準備考試。',
+};

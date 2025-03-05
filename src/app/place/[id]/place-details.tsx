@@ -178,7 +178,7 @@ export default function PlaceDetails(props: Props) {
             </span>
           </div>
 
-          <div className='sticky top-0 bg-white z-10'>
+          <div className='sticky top-0 bg-background z-10'>
             <div className='flex border-b'>
               <button
                 onClick={() => scrollToSection(overviewRef, TabEnum.Overview)}
