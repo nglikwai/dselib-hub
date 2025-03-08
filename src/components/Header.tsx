@@ -5,6 +5,7 @@ import { items } from 'src/app/page';
 import ToggleThemeButton from 'src/app/pp/_components/toggle-theme-button';
 
 import { Button } from './components/ui/button';
+import { cn } from './lib/utils';
 import { HeaderRight } from './HeaderRight';
 
 export const Header = () => {
@@ -29,7 +30,12 @@ export const Header = () => {
               >
                 <Link href={item.link}>
                   <Icon />
-                  <span className='overflow-x-hidden w-0 group-hover:w-32 transition-all'>
+                  <span
+                    className={cn(
+                      'overflow-x-hidden w-0 transition-all',
+                      item.width
+                    )}
+                  >
                     {item.text}
                   </span>
                 </Link>

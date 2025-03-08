@@ -1,36 +1,36 @@
 import Link from 'next/link';
 
 import { Coffee, LibraryBig } from 'lucide-react';
+import { cn } from 'src/lib/utils';
 
 export const items = [
   {
     icon: LibraryBig,
     text: 'Pastpaper 圖書庫',
     link: '/pp',
+    width: 'group-hover:w-[118px]',
   },
   {
     icon: Coffee,
     text: '温書好地方',
     link: '/hub',
+    width: 'group-hover:w-[72px]',
   },
 ];
 
 export default () => {
+  const commonStyle =
+    'text-4xl flex font-bold items-center flex-col justify-center gap-10 cursor-pointer transition hover:bg-border';
   return (
-    <div className='container mx-auto px-4 border-x border-dashed flex justify-center items-center max-ava-h sm:gap-20 gap-10 flex-col sm:flex-row'>
-      {items.map((item, index) => {
-        const Icon = item.icon;
-        return (
-          <Link
-            href={item.link}
-            key={index}
-            className='border py-16 rounded-2xl flex items-center justify-center gap-4 w-80 cursor-pointer hover:bg-foreground hover:text-primary-foreground transition'
-          >
-            <Icon />
-            <span>{item.text}</span>
-          </Link>
-        );
-      })}
+    <div className='container mx-auto border-x border-dashed grid sm:grid-cols-2 max-ava-h'>
+      <Link href='pp' className={cn(commonStyle, 'border-b sm:border-none')}>
+        <LibraryBig size={80} />
+        <span>Pastpaper 圖書庫</span>
+      </Link>
+      <Link href='hub' className={cn(commonStyle)}>
+        <Coffee size={80} />
+        <span>温書好地方</span>
+      </Link>
     </div>
   );
 };
