@@ -16,12 +16,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Run build
-        run: yarn build
-
       - name: Release with release-please
         uses: google-github-actions/release-please-action@v4
         with:
