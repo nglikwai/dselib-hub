@@ -15,6 +15,7 @@ export const items = [
   },
 ];
 
+// Landing Page
 export default () => {
   return (
     <div className='container mx-auto px-4 border-x border-dashed flex justify-center items-center max-ava-h sm:gap-20 gap-10 flex-col sm:flex-row'>
