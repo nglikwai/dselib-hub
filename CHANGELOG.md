@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/dse00/study-place-web/compare/v1.1.0...v1.1.1) (2025-03-10)
+
+
+### Bug Fixes
+
+* typo ([998a0f3](https://github.com/dse00/study-place-web/commit/998a0f3842faa325a7bbe4166cb740489b4852f7))
+
 ## [1.1.0](https://github.com/dse00/study-place-web/compare/v1.0.0...v1.1.0) (2025-03-10)
 
 
