@@ -1,11 +1,8 @@
 import Link from 'next/link';
 
 import { Library } from 'lucide-react';
-import { items } from 'src/app/page';
 import ToggleThemeButton from 'src/app/pp/_components/toggle-theme-button';
 
-import { Button } from './components/ui/button';
-import { cn } from './lib/utils';
 import { HeaderRight } from './HeaderRight';
 
 export const Header = () => {
@@ -18,31 +15,7 @@ export const Header = () => {
             <span className='hidden sm:block'>dselib</span>
           </Link>
         </h1>
-        <div className='grow sm:space-x-5'>
-          {items.map(item => {
-            const Icon = item.icon;
-            return (
-              <Button
-                variant={'ghost'}
-                className='group'
-                key={item.text}
-                asChild
-              >
-                <Link href={item.link}>
-                  <Icon />
-                  <span
-                    className={cn(
-                      'overflow-x-hidden w-0 transition-all',
-                      item.width
-                    )}
-                  >
-                    {item.text}
-                  </span>
-                </Link>
-              </Button>
-            );
-          })}
-        </div>
+
         <div className='flex'>
           <ToggleThemeButton />
           <HeaderRight />
