@@ -6,13 +6,13 @@ import { cn } from 'src/lib/utils';
 export const items = [
   {
     icon: LibraryBig,
-    text: 'Pastpaper 圖書庫',
+    text: 'Pastpaper 資料庫',
     link: '/pp',
     width: 'group-hover:w-[118px]',
   },
   {
     icon: Coffee,
-    text: '温書好地方',
+    text: '温書 Space',
     link: '/hub',
     width: 'group-hover:w-[72px]',
   },
@@ -26,11 +26,11 @@ export default () => {
     <div className='container mx-auto border-x border-dashed grid sm:grid-cols-2 max-ava-h'>
       <Link href='pp' className={cn(commonStyle, 'border-b sm:border-none')}>
         <LibraryBig size={80} />
-        <span>Pastpaper 圖書庫</span>
+        <span>Pastpaper 資料庫</span>
       </Link>
       <Link href='hub' className={cn(commonStyle)}>
         <Coffee size={80} />
-        <span>温書好地方</span>
+        <span>温書 Space</span>
       </Link>
     </div>
   );

@@ -13,7 +13,7 @@ export const QUERY_KEYS = {
 
 export const webData = {
   title: 'dselib',
-  slogan: 'DSE Past Paper 圖書館',
+  slogan: 'DSE Past Paper 資料庫',
   description:
     '這裡收集了所有DSE, CE, AL 科目的歷屆試題，並按年份收錄，方便同學們讀取及準備考試。',
 };
