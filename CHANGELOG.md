@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/nglikwai/dselib-hub/compare/v1.1.1...v1.2.0) (2025-06-15)
+
+
+### Features
+
+* title ([4ea2baa](https://github.com/nglikwai/dselib-hub/commit/4ea2baa6fd5144af2db1389ae984b6dbec433224))
+
 ## [1.1.1](https://github.com/dse00/study-place-web/compare/v1.1.0...v1.1.1) (2025-03-10)
 
 
