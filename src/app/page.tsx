@@ -18,6 +18,7 @@ export const items = [
   },
 ];
 
+// Landing page
 export default () => {
   const commonStyle =
     'sm:text-4xl flex text-2xl font-bold items-center flex-col justify-center gap-10 cursor-pointer transition hover:bg-border';
