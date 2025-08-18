@@ -16,7 +16,7 @@ const renderStars = (rating: number) => {
 export const PlaceReviewCard = ({ review }: { review: PlaceReview }) => {
   return (
     <Card key={review.id} className='shadow-none border-none'>
-      <CardContent className='pt-6 px-0 border-b border-dashed'>
+      <CardContent className='pt-6 px-0 border-dashed'>
         <div className='flex items-start justify-between mb-2'>
           <div>
             <h3 className='font-medium'>

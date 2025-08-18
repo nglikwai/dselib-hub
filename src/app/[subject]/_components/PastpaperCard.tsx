@@ -2,8 +2,6 @@ import Link from 'next/link';
 
 import { AudioLines, FileText } from 'lucide-react';
 
-import DownloadButton from './DownloadButton';
-
 import { buttonVariants } from '@/components/components/ui/button';
 import {
   Card,
@@ -47,7 +45,7 @@ export default (props: PastPaperPropsType) => {
           ))}
         </div>
 
-        <DownloadButton {...props} />
+        {/* <DownloadButton {...props} /> */}
       </CardContent>
     </Card>
   );

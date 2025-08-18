@@ -309,7 +309,7 @@ export const HeroBanner = () => {
                   }`}
                 >
                   {transformedAreas.map(area => (
-                    <div key={area.id} className='border-b last:border-b-0'>
+                    <div key={area.id} className='last:border-b-0'>
                       <button
                         type='button'
                         onClick={e => handleAreaSelect(e, area.id)}

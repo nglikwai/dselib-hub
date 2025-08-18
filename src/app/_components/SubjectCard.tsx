@@ -14,7 +14,7 @@ export default ({ subject }: { subject: SubjectType }) => {
   const years = getSortedYears(subject.years);
 
   return (
-    <Link href={`/pp/${subject.key}`}>
+    <Link href={`/${subject.key}`}>
       <Card className='hover:bg-secondary transition cursor-pointer'>
         <CardHeader>
           <CardTitle className='flex gap-2 items-center'>

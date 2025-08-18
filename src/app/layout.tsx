@@ -7,7 +7,7 @@ import { Toaster } from 'sonner';
 
 import { webData } from '../constants';
 
-import Footer from './pp/_components/footer';
+import Footer from './_components/footer';
 
 import AdSense from '@/components/AdSense';
 import GoogleAnalytic from '@/components/GoogleAnalytic';

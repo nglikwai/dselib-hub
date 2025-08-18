@@ -12,7 +12,7 @@ export default async ({ subject }: { subject: string }) => {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href='/pp'>Lib</BreadcrumbLink>
+          <BreadcrumbLink href='/'>Lib</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>

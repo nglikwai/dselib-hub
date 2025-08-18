@@ -1,37 +1,79 @@
-import Link from 'next/link';
+import { metaData, SubjectMetaType } from 'src/data/meta';
 
-import { Coffee, LibraryBig } from 'lucide-react';
-import { cn } from 'src/lib/utils';
+import SubjectCard from './_components/SubjectCard';
 
-export const items = [
-  {
-    icon: LibraryBig,
-    text: 'Pastpaper 資料庫',
-    link: '/pp',
-    width: 'group-hover:w-[118px]',
-  },
-  {
-    icon: Coffee,
-    text: '温書 Space',
-    link: '/hub',
-    width: 'group-hover:w-[72px]',
-  },
-];
+import { Badge } from '@/components/components/ui/badge';
+import { webData } from '@/constants/index';
 
-// Landing page
-export default () => {
-  const commonStyle =
-    'sm:text-4xl flex text-2xl font-bold items-center flex-col justify-center gap-10 cursor-pointer transition hover:bg-border';
+export default function Home() {
   return (
-    <div className='container mx-auto border-x border-dashed grid sm:grid-cols-2 max-ava-h'>
-      <Link href='pp' className={cn(commonStyle, 'border-b sm:border-none')}>
-        <LibraryBig size={80} />
-        <span>Pastpaper 資料庫</span>
-      </Link>
-      <Link href='hub' className={cn(commonStyle)}>
-        <Coffee size={80} />
-        <span>温書 Space</span>
-      </Link>
+    <div className='border-dashed'>
+      <div className='grid'>
+        <div className='border-dashed'>
+          <div className='container mx-auto px-6 border-dashed py-12 flex flex-col items-start gap-4'>
+            <h1>{webData.slogan}</h1>
+            <div className='text-neutral-500 text-lg leading-10 font-light'>
+              所有試題均來自網上。
+            </div>
+            <div className='flex gap-5 items-center'>
+              <Badge>DSE</Badge>
+              <span className='text-sm'>CE</span>
+              <span className='text-sm'>A-Level</span>
+            </div>
+          </div>
+        </div>
+
+        <div className='grid gap-12 container mx-auto px-6 border-dashed py-10 pb-20'>
+          {allSubjects.map(category => (
+            <div className='grid gap-4' key={category.key}>
+              <h2>{category.displayNameTc}</h2>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+                {category.items.map(subject => (
+                  <SubjectCard key={subject.key} subject={subject} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
-};
+}
+
+const getMeta = (subjects: string[]) =>
+  subjects.map(sub =>
+    metaData.find(item => item.key === sub)
+  ) as SubjectMetaType[];
+
+const allSubjects = [
+  {
+    key: 'core',
+    displayName: 'Core',
+    displayNameTc: '核心科目',
+    items: getMeta(['chi', 'eng', 'm0', 'ls']),
+  },
+  {
+    key: 'science',
+    displayName: 'Science',
+    displayNameTc: '科學',
+    items: getMeta(['phy', 'chem', 'bio', 'm1', 'm2']),
+  },
+  {
+    key: 'business',
+    displayName: 'Business',
+    displayNameTc: '商業',
+    items: getMeta(['bafs', 'econ']),
+  },
+  {
+    key: 'liberal',
+    displayName: '文科',
+    displayNameTc: '文科',
+    items: getMeta(['chihist', 'enghist', 'geog']),
+  },
+  {
+    key: 'others',
+    displayName: 'Others',
+    displayNameTc: '其他',
+    items: getMeta(['ict', 'ths']),
+  },
+];
