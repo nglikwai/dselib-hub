@@ -15,13 +15,13 @@ export default ({ subject }: { subject: SubjectType }) => {
 
   return (
     <Link href={`/${subject.key}`}>
-      <Card className='hover:bg-secondary transition cursor-pointer'>
+      <Card className='hover:bg-secondary transition shadow-none border cursor-pointer'>
         <CardHeader>
           <CardTitle className='flex gap-2 items-center'>
             {subject.icon}
-            <span>{subject.displayNameTc}</span>
+            <span>{subject.displayName}</span>
           </CardTitle>
-          <CardDescription>{subject.displayName}</CardDescription>
+          <CardDescription>{subject.displayNameTc}</CardDescription>
         </CardHeader>
         <CardContent>
           <p>

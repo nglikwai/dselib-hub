@@ -1,4 +1,3 @@
-import { ExternalLink } from 'lucide-react';
 import data from 'src/data';
 import { metaData } from 'src/data/meta';
 import { getSortedYears } from 'src/lib/utils';
@@ -49,7 +48,6 @@ export default async ({ params }: { params: Promise<{ subject: string }> }) => {
             {examTags.map(item => (
               <Badge variant={'secondary'} key={item}>
                 <span className='mr-[6px]'>{item}</span>
-                <ExternalLink size={12} />
               </Badge>
             ))}
           </div>

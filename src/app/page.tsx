@@ -2,7 +2,6 @@ import { metaData, SubjectMetaType } from 'src/data/meta';
 
 import SubjectCard from './_components/SubjectCard';
 
-import { Badge } from '@/components/components/ui/badge';
 import { webData } from '@/constants/index';
 
 export default function Home() {
@@ -13,10 +12,10 @@ export default function Home() {
           <div className='container mx-auto px-6 border-dashed py-12 flex flex-col items-start gap-4'>
             <h1>{webData.slogan}</h1>
             <div className='text-neutral-500 text-lg leading-10 font-light'>
-              所有試題均來自網上。
+              All papers come from online
             </div>
             <div className='flex gap-5 items-center'>
-              <Badge>DSE</Badge>
+              <span className='text-sm'>DSE</span>
               <span className='text-sm'>CE</span>
               <span className='text-sm'>A-Level</span>
             </div>
@@ -26,7 +25,7 @@ export default function Home() {
         <div className='grid gap-12 container mx-auto px-6 border-dashed py-10 pb-20'>
           {allSubjects.map(category => (
             <div className='grid gap-4' key={category.key}>
-              <h2>{category.displayNameTc}</h2>
+              {/* <h2>{category.displayNameTc}</h2> */}
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
                 {category.items.map(subject => (
                   <SubjectCard key={subject.key} subject={subject} />
