@@ -11,7 +11,6 @@ import Footer from './_components/footer';
 
 import AdSense from '@/components/AdSense';
 import GoogleAnalytic from '@/components/GoogleAnalytic';
-import { Header } from '@/components/Header';
 import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -52,7 +51,7 @@ export default function RootLayout({
         className={`${inter.className} relative min-h-screen overscroll-none`}
       >
         <ReactQueryClientProvider>
-          <Header />
+          {/* <Header /> */}
           <div>{children}</div>
           <Footer />
         </ReactQueryClientProvider>

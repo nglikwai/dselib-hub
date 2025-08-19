@@ -1,7 +1,5 @@
 import Link from 'next/link';
 
-import { AudioLines, FileText } from 'lucide-react';
-
 import { buttonVariants } from '@/components/components/ui/button';
 import {
   Card,
@@ -35,11 +33,6 @@ export default (props: PastPaperPropsType) => {
               className={buttonVariants({ variant: 'secondary' })}
               href={`${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${subject}/${language}/${pastpaper.year}/${item}`}
             >
-              {item.includes('mp3') ? (
-                <AudioLines />
-              ) : (
-                <FileText stroke='#00000077' />
-              )}
               <span> {item}</span>
             </Link>
           ))}
