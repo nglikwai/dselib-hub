@@ -39,19 +39,19 @@ export default async ({ params }: { params: Promise<{ subject: string }> }) => {
   return (
     <div className='py-4 grid'>
       <div className='flex justify-between'>
-        <div className='grid gap-2 py-6'>
+        <section className='grid gap-2 py-6'>
           <h1>{meta?.displayNameTc}</h1>
-          <p className='text-neutral-400'>
+          <span className='text-neutral-400'>
             {years?.[0]}-{years?.at(-1)}
-          </p>
-          <div className='flex gap-2 mt-2'>
+          </span>
+          <menu className='flex gap-2 mt-2'>
             {examTags.map(item => (
               <Badge variant={'secondary'} key={item}>
                 <span className='mr-[6px]'>{item}</span>
               </Badge>
             ))}
-          </div>
-        </div>
+          </menu>
+        </section>
       </div>
 
       <Tabs defaultValue={languages[1] || languages[0]}>

@@ -27,7 +27,7 @@ export default (props: PastPaperPropsType) => {
         </CardTitle>
       </CardHeader>
       <CardContent className='flex justify-between gap-4'>
-        <div className='flex gap-4 flex-wrap'>
+        <menu className='flex gap-4 flex-wrap'>
           {pastpaper.papers.map(item => (
             <Link
               target='_blank'
@@ -43,7 +43,7 @@ export default (props: PastPaperPropsType) => {
               <span> {item}</span>
             </Link>
           ))}
-        </div>
+        </menu>
 
         {/* <DownloadButton {...props} /> */}
       </CardContent>

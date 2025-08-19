@@ -42,7 +42,7 @@ export default ({
 
   return (
     <Tabs defaultValue='DSE'>
-      <div className='flex justify-end pb-4'>
+      <menu className='flex justify-end pb-4'>
         <TabsList>
           {examTags.map(tag => (
             <TabsTrigger key={tag} value={tag}>
@@ -50,10 +50,10 @@ export default ({
             </TabsTrigger>
           ))}
         </TabsList>
-      </div>
+      </menu>
       {examTags.map(tag => (
         <TabsContent key={tag} value={tag}>
-          <div className='flex flex-col gap-4 '>
+          <main className='flex flex-col gap-4 '>
             {getFilteredPastPapers(tag).map(({ year, papers }) => (
               <PastpaperCard
                 tag={tag}
@@ -65,7 +65,7 @@ export default ({
                 subject={subject}
               />
             ))}
-          </div>
+          </main>
         </TabsContent>
       ))}
     </Tabs>

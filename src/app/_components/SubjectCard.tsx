@@ -24,9 +24,9 @@ export default ({ subject }: { subject: SubjectType }) => {
           <CardDescription>{subject.displayNameTc}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>
+          <span>
             {years[0]}-{years.at(-1)}
-          </p>
+          </span>
         </CardContent>
       </Card>
     </Link>
