@@ -12,8 +12,8 @@ export const QUERY_KEYS = {
 };
 
 export const webData = {
-  title: 'dse past paper',
-  slogan: 'DSE Past Paper',
+  title: 'past paper',
+  slogan: 'Past Paper',
   description:
-    '這裡收集了所有DSE, CE, AL 科目的歷屆試題，並按年份收錄，方便同學們讀取及準備考試。',
+    'Collection of Past Paper for high school students preparing seating your public exam',
 };
