@@ -26,7 +26,7 @@ export default async ({
 }) => {
   const { subject } = await params;
   return (
-    <div className='container mx-auto px-6 py-8 border-dashed'>
+    <div className='lg:container mx-auto px-6 py-8 border-dashed'>
       <Breadcrumb subject={subject} />
       {children}
     </div>

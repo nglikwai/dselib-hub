@@ -11,6 +11,7 @@ import Footer from './_components/footer';
 
 import AdSense from '@/components/AdSense';
 import GoogleAnalytic from '@/components/GoogleAnalytic';
+import LayoutWrapper from '@/components/LayoutWrapper';
 import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -51,9 +52,10 @@ export default function RootLayout({
         className={`${inter.className} relative min-h-screen overscroll-none`}
       >
         <ReactQueryClientProvider>
-          {/* <Header /> */}
-          <div>{children}</div>
-          <Footer />
+          <LayoutWrapper>
+            {children}
+            <Footer />
+          </LayoutWrapper>
         </ReactQueryClientProvider>
         <Toaster position='top-center' />
         <GoogleAnalytic />

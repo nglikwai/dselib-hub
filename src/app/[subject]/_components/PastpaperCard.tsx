@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import DownloadButton from './DownloadButton';
+
 import { buttonVariants } from '@/components/components/ui/button';
 import {
   Card,
@@ -19,12 +21,12 @@ export default (props: PastPaperPropsType) => {
   const { pastpaper, language, subject, tag } = props;
   return (
     <Card className='border-dashed shadow-none'>
-      <CardHeader>
+      <CardHeader className='pl-0'>
         <CardTitle className='flex gap-2 items-center'>
           {pastpaper.year.replace('al', '')} {tag !== 'DSE' && tag}
         </CardTitle>
       </CardHeader>
-      <CardContent className='flex justify-between gap-4'>
+      <CardContent className='flex justify-between gap-4 pl-0'>
         <menu className='flex gap-4 flex-wrap'>
           {pastpaper.papers.map(item => (
             <Link
@@ -38,7 +40,7 @@ export default (props: PastPaperPropsType) => {
           ))}
         </menu>
 
-        {/* <DownloadButton {...props} /> */}
+        <DownloadButton {...props} />
       </CardContent>
     </Card>
   );
