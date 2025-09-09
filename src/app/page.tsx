@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className='border-dashed'>
       <div className='grid'>
-        <section className='lg:container w-full mx-auto px-6 border-dashed py-12 flex flex-col items-start gap-4'>
+        <section className='lg:container w-full mx-auto px-6 border-dashed py-6  flex flex-col items-start gap-4'>
           <h1>{webData.slogan}</h1>
           <p className='text-neutral-500 text-lg leading-10 font-light'>
             All papers come from online

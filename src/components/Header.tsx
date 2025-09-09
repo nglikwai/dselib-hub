@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export const Header = ({ onMobileMenuToggle }: HeaderProps) => {
   return (
-    <header className='sticky top-0 z-20 bg-background/90 backdrop-blur-sm border-b border-border'>
+    <header className='sticky top-0 z-20 bg-background/90 backdrop-blur-sm'>
       <nav className='mx-auto px-6 py-[10px] flex justify-between items-center border-dashed sm:gap-10 gap-4'>
         <div className='flex items-center gap-4'>
           {/* Mobile menu button on mobile, Logo on desktop */}
