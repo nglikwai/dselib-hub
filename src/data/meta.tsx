@@ -22,6 +22,7 @@ import {
   chem,
   chi,
   chihist,
+  citizen,
   econ,
   eng,
   enghist,
@@ -59,12 +60,18 @@ export const metaData = [
   },
   {
     key: 'ls',
-    displayName: 'Liberal Studies',
+    displayName: 'Liberal Studies (old)',
     displayNameTc: '通識',
     icon: <Newspaper />,
     years: Object.keys(ls.eng),
   },
-
+  {
+    key: 'citizen',
+    displayName: 'Citizenship',
+    displayNameTc: '公民與社會發展',
+    icon: <Newspaper />,
+    years: Object.keys(citizen.chi),
+  },
   {
     key: 'bio',
     displayName: 'Biology',

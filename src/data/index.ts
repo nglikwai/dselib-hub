@@ -15,6 +15,7 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2a.pdf', 'p2b.pdf', 'per.pdf'],
       '2022': ['ans.pdf', 'p1.pdf', 'p2a.pdf', 'p2b.pdf', 'per.pdf'],
       '2023': ['ans.pdf', 'p1.pdf', 'p2a.pdf', 'p2b.pdf', 'per.pdf'],
+      '2025': ['p1a.pdf', 'p1b.pdf', 'p2a.pdf', 'p2b.pdf'],
     },
     eng: {
       pp: ['ans.pdf', 'p1.pdf', 'p2a.pdf', 'p2b.pdf'],
@@ -31,6 +32,7 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2a.pdf', 'p2b.pdf', 'per.pdf'],
       '2022': ['ans.pdf', 'p1.pdf', 'p2a.pdf', 'p2b.pdf', 'per.pdf'],
       '2023': ['ans.pdf', 'p1.pdf', 'p2a.pdf', 'p2b.pdf', 'per.pdf'],
+      '2025': ['p1a.pdf', 'p1b.pdf', 'p2a.pdf', 'p2b.pdf'],
     },
   },
   bio: {
@@ -93,6 +95,7 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'per.pdf'],
       '2022': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'per.pdf'],
       '2023': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'per.pdf'],
+      '2024': ['p1.pdf', 'p2.pdf'],
     },
   },
   chem: {
@@ -262,6 +265,8 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2.pdf'],
       '2022': ['ans.pdf', 'p1.pdf', 'p2.pdf'],
       '2023': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'per.pdf'],
+      '2024': ['ans.pdf', 'p1.pdf'],
+      '2025': ['p1.pdf'],
     },
   },
   chi: {
@@ -417,6 +422,8 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'p3.pdf', 'per.pdf'],
       '2022': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'p3.pdf', 'per.pdf'],
       '2023': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'p3.pdf', 'per.pdf'],
+      '2024': ['p1.pdf', 'p2.pdf'],
+      '2025': ['p1.pdf', 'p2.pdf'],
     },
   },
   chihist: {
@@ -468,6 +475,7 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'per.pdf'],
       '2022': ['p1.pdf', 'p2.pdf'],
       '2023': ['p1.pdf', 'p2.pdf'],
+      '2024': ['p2.pdf'],
     },
   },
   eng: {
@@ -666,6 +674,7 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'p3.pdf', 'per.pdf'],
       '2022': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'p3.pdf', 'per.pdf'],
       '2023': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'p3.pdf', 'p4.pdf', 'per.pdf'],
+      '2024': ['p1.pdf', 'p2.pdf', 'p3.pdf', 'ans.pdf'],
     },
   },
   enghist: {
@@ -1073,6 +1082,8 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2.pdf'],
       '2022': ['ans.pdf', 'p1.pdf', 'p2.pdf'],
       '2023': ['ans.pdf', 'p1.pdf', 'p2.pdf'],
+      '2024': ['p1.pdf', 'p2.pdf'],
+      '2025': ['p1.pdf', 'p2.pdf'],
     },
   },
   m1: {
@@ -1109,6 +1120,7 @@ const data = {
       '2021': ['ans.pdf', 'per.pdf', 'pp.pdf'],
       '2022': ['ans.pdf', 'pp.pdf'],
       '2023': ['pp.pdf'],
+      '2024': ['pp.pdf'],
     },
   },
   m2: {
@@ -1174,6 +1186,7 @@ const data = {
       '2021': ['ans.pdf', 'pp.pdf'],
       '2022': ['ans.pdf', 'pp.pdf'],
       '2023': ['pp.pdf'],
+      '2024': ['pp.pdf'],
     },
   },
   phy: {
@@ -1206,6 +1219,7 @@ const data = {
       '2021': ['ans.pdf', 'p1a.pdf', 'p1b.pdf', 'p2.pdf', 'per.pdf'],
       '2022': ['ans.pdf', 'p1a.pdf', 'p1b.pdf', 'p2.pdf', 'per.pdf'],
       '2023': ['ans.pdf', 'p1a.pdf', 'p1b.pdf', 'p2.pdf', 'per.pdf'],
+      '2024': ['p1a.pdf'],
     },
   },
   ths: {
@@ -1222,6 +1236,12 @@ const data = {
       '2021': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'per.pdf'],
       '2022': ['ans.pdf', 'p1.pdf', 'p2.pdf'],
       '2023': ['ans.pdf', 'p1.pdf', 'p2.pdf', 'per.pdf'],
+    },
+  },
+  citizen: {
+    chi: {
+      sp: ['question.pdf', 'answer.pdf'],
+      '2024': ['question.pdf', 'answer.pdf'],
     },
   },
 };
@@ -1242,6 +1262,7 @@ const {
   m2,
   phy,
   ths,
+  citizen,
 } = data;
 
 const subjectKeys = [
@@ -1261,6 +1282,7 @@ const subjectKeys = [
   'm2',
   'phy',
   'ths',
+  'citizen',
 ];
 
 export default data;
@@ -1283,4 +1305,5 @@ export {
   phy,
   ths,
   subjectKeys,
+  citizen,
 };

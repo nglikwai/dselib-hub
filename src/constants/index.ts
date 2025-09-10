@@ -25,7 +25,7 @@ export const allSubjects = [
     key: 'core',
     displayName: 'Core',
     displayNameTc: '核心科目',
-    items: getMeta(['chi', 'eng', 'm0', 'ls']),
+    items: getMeta(['chi', 'eng', 'm0', 'citizen', 'ls']),
   },
   {
     key: 'science',
