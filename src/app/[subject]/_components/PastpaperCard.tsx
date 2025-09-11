@@ -20,14 +20,14 @@ export type PastPaperPropsType = {
 export default (props: PastPaperPropsType) => {
   const { pastpaper, language, subject, tag } = props;
   return (
-    <Card className='border-dashed shadow-none'>
-      <CardHeader className='pl-0'>
-        <CardTitle className='flex gap-2 items-center'>
+    <Card className='border-dashed shadow-none flex items-start w-full'>
+      <CardHeader className='pl-0 pt-2'>
+        <CardTitle className='flex gap-2 items-start'>
           {pastpaper.year.replace('al', '')} {tag !== 'DSE' && tag}
         </CardTitle>
       </CardHeader>
-      <CardContent className='flex justify-between gap-4 pl-0'>
-        <menu className='flex gap-4 flex-wrap'>
+      <CardContent className='flex justify-between gap-4 grow pr-0 pl-0 sm:pl-6'>
+        <menu className='flex gap-4 flex-wrap grow'>
           {pastpaper.papers.map(item => (
             <Link
               target='_blank'

@@ -9,7 +9,6 @@ import { webData } from '../constants';
 
 import Footer from './_components/footer';
 
-import AdSense from '@/components/AdSense';
 import GoogleAnalytic from '@/components/GoogleAnalytic';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider';
@@ -22,8 +21,8 @@ export const metadata: Metadata = {
   title: webData.slogan + ' - ' + webData.title,
   description:
     webData.description +
-    '為所有同學以最便利的方法及速度獲得歷屆試題，節省時間以準備公開試。所有香港之HKDSE、HKCE、HKAL的試題均來自網上。想找一個舒適的環境溫書、工作？無論學生還是上班一族，都需要不斷學習及進修，一個舒適的環境可以令你更集中甚至事半功倍，立即在 StudyHub 尋找您的溫書地方！',
-  icons: ['/book.svg'],
+    '為所有同學以最便利的方法及速度獲得歷屆試題，節省時間以準備公開試。所有香港之HKDSE、HKCE、HKAL的試題均來自網上。',
+  icons: ['/book.ico'],
 };
 
 export default function RootLayout({
@@ -59,7 +58,6 @@ export default function RootLayout({
         </ReactQueryClientProvider>
         <Toaster position='top-center' />
         <GoogleAnalytic />
-        <AdSense />
       </body>
     </html>
   );
