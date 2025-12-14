@@ -17,7 +17,7 @@ export const webData = {
   title: 'past paper',
   slogan: 'Past Paper',
   description:
-    'Collection of Past Paper for high school students preparing seating your public exam',
+    'Collection of HKDSE Past Paper for high school students preparing seating your public exam',
 };
 
 export const allSubjects = [
